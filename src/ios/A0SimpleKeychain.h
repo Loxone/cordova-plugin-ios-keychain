@@ -262,10 +262,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param key     the key of the value to fetch
  *  @param message prompt message to display for TouchID/passcode prompt if neccesary
+ *  @param err     Returns an error, if the item cannot be retrieved. F.e. item not found
+ *                 or user authentication failed in TouchId case.
  *
  *  @return the value or nil if an error occurs.
  */
-- (nullable NSString *)stringForKey:(NSString *)key promptMessage:(nullable NSString *)message;
+- (nullable NSString *)stringForKey:(NSString *)key promptMessage:(nullable NSString *)message error:(NSError**)err;
 
 /**
  *  Fetches a NSData from the keychain
@@ -282,7 +284,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param key     the key of the value to fetch
  *  @param message prompt message to display for TouchID/passcode prompt if neccesary
- *  @param err     Returns an error, if the item cannot be retrieved. F.e. item not found 
+ *  @param err     Returns an error, if the item cannot be retrieved. F.e. item not found
  *                 or user authentication failed in TouchId case.
  *
  *  @return the value or nil if an error occurs.
