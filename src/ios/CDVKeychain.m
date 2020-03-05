@@ -47,9 +47,15 @@
     keychain.useAccessControl = YES;
     keychain.defaultAccessiblity = A0SimpleKeychainItemAccessibleWhenPasscodeSetThisDeviceOnly;
 
-    NSString *value = [keychain stringForKey:key promptMessage:message];
+    NSError *error;
+    NSString *value = [keychain stringForKey:key promptMessage:message error:&error];
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
+    if (error) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:[error userInfo]];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
+    }
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }];
 }
